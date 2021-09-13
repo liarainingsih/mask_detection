@@ -3,23 +3,15 @@ from flask.helpers import send_file
 from flask.wrappers import Response
 import numpy as np
 import pandas as pd
-import numpy as py
 from skimage import io
 from matplotlib.figure import Figure
 import matplotlib
 import matplotlib.pyplot  as plt
-from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from flask import Flask, request, render_template, session, redirect
 from tensorflow import keras
-from tensorflow.keras.preprocessing.image import load_img
-from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import Model, load_model
-from sklearn.preprocessing import LabelBinarizer
 import cv2
 import sys
-# import torch
-# from torchvision import datasets,transforms
-# from torch.utils.data import Dataset,DataLoader
 from PIL import Image
 import matplotlib.patches as patches
 from scipy.spatial import distance
@@ -76,10 +68,6 @@ def upload_file():
     if uploaded_file.filename != '':
         uploaded_file.save(uploaded_file.filename)
     return testing(uploaded_file.filename)
-
-@app.route('/dash')
-def dash():    
-    return flask.render_template('dash.html')
 
 @app.route('/about')
 def about():    
