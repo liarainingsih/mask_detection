@@ -3,5 +3,4 @@ numpy
 sklearn
 matplotlib
 pandas
-gunicorn
 tensorflow-cpu
