@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Object Detection</title>
+    <style>
+        body {
+          margin: 0;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+        
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+        
+        .topnav a.active {
+          background-color: #04AA6D;
+          color: white;
+        }
+        </style>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="{{ url_for('main')}}">Home</a>
+        <a href="{{ url_for('hypothesis')}}">Hypothesis</a>
+        <a href="{{ url_for('about')}}">About</a>
+      </div>
+    <div style="padding-left: 10px;">
+      <p style="font-size:20px; color: darkblue;">Milestone 2 ini akan mencoba mendeteksi penggunaan masker untuk mencegah penularan covid-19 </p>
+      <p style="font-size:30px; color: darkblue;">Data Loading :</p>
+      <p style="font-size:15px; color: brown;">Data yang digunakan adalah data gambar dan data annotation dalam bentuk xml yang berisikan keterangan posisi masker dan keterangan status masker </p>
+        <p style="font-size:30px; color: darkblue;">Data Cleaning:</p>
+        <p style="font-size:15px; color: brown;">Cek size dari gambar</p>
+        <p style="font-size:30px; color: darkblue;">EDA:</p>
+        <ul>
+            <li>Data gambar berjumlah 853</li>
+            <img src="{{url_for('static', filename='1_status.png')}}" style="width:500px;height:400px;" />
+        </ul>        
+        <br>
+        <p style="font-size:30px; color: darkblue;">Data Preprocessing:</p>
+        <p style="font-size:15px; color: brown;">Data Augmentasi sebagai implementasi Pipeline</p>
+        <p style="font-size:15px; color: brown;">Standardize the data:</p>
+        <ul>
+          <li>
+            <p style="font-size:15px; color: brown;">Gambar dibagi 255</p>
+          </li>
+          <li>
+            <p style="font-size:15px; color: brown;">Menggunakan library img_to_array untuk mengubah intensitas cahaya</p>
+          </li>
+        </ul>
+        <p style="font-size:15px; color: brown;">Menentukan data features, labels(with_mask/without_mask/incorrect), dan path dari gambar yang akan diprediksi</p>
+        <p style="font-size:15px; color: brown;">Splitting Data: Train Test Val Data</p>
+
+        <br>
+        <p style="font-size:30px; color: darkblue;">Model Definition</p>
+        <p style="font-size:20px; color: darkblue;">Functional API</p>
+        <p style="font-size:15px; color: darkblue;">softmaxHead = Dense(512, activation="relu")(flatten)</p>
+        <p style="font-size:15px; color: darkblue;">softmaxHead = Dropout(0.5)(softmaxHead)</p>
+        <p style="font-size:15px; color: darkblue;">softmaxHead = Dense(512, activation="relu")(softmaxHead)</p>
+        <p style="font-size:15px; color: darkblue;">softmaxHead = Dropout(0.5)(softmaxHead)</p>
+        <p style="font-size:15px; color: darkblue;">softmaxHead = Dense(len(lb.classes_), activation="softmax",name="class_label")(softmaxHead)</p>                
+        <p style="font-size:15px; color: darkblue;">model = Model(inputs=vgg.input,outputs=(softmaxHead))</p><br>
+        <p style="font-size:15px; color: darkblue;">Batch size=32, epochs= 20, losses = categorical_crossentropy</p>
+        <img src="{{url_for('static', filename='1_sum_api.png')}}" style="width:700px;height:600px;" />
+        <br><br><img src="{{url_for('static', filename='1_accuracy.png')}}" style="width:500px;height:400px;" />
+        <br><br><img src="{{url_for('static', filename='1_loss.png')}}" style="width:500px;height:400px;" />
+        <br><br>
+        <p style="font-size:20px; color: darkblue;">Save Model</p>
+        <p style="font-size:20px; color: darkblue;">Save dan load model dengan library Keras dengan format h5</p>
+        <br><br>
+        <p style="font-size:30px; color: darkblue;">Evaluation</p>
+        <br><br>
+        <img src="{{url_for('static', filename='1_with_mask_class_before.png')}}" style="width:500px;height:400px;" /><img src="{{url_for('static', filename='1_with_mask_class.png')}}" style="width:500px;height:400px;" />
+        <br><br><img src="{{url_for('static', filename='1_without_mask2_before.png')}}" style="width:500px;height:400px;" /><img src="{{url_for('static', filename='1_without_mask2.png')}}" style="width:500px;height:400px;" />
+        <br><br><img src="{{url_for('static', filename='1_mask_incorrect_before.png')}}" style="width:500px;height:400px;" /><img src="{{url_for('static', filename='1_mask_incorrect.png')}}" style="width:500px;height:400px;" />
+        <br><br>
+        <p style="font-size:30px; color: darkblue;">Kesimpulan</p>
+        <h4><font color='navy'>Dataset menggunakan data gambar yang bermasker, tidak bermasker, dan masker yang tidak benar</font></h4>
+        <h4><font color='navy'>Dataset terdiri dari data gambar dan data annotation(bentuk xml, menandakan gambar yang with_mask, without_mask, mask_wear_incorrect)</font></h4>
+        <h4><font color='navy'>Model menggunakan Standardize(dibagi 255) untuk model pipeline</font></h4>
+        <h4><font color='navy'>Model menggunakan functional API</font></h4>
+        <h4><font color='navy'>Terdapat under fitting antara train dan test pada epoch 0-5 dan over fitting pada epoch ke 6-20</font></h4>
+        <h4><font color='navy'>Nilai akurasi max di angka 99.56%</font></h4>
+        <h4><font color='navy'>Nilai loss terkecil sebesar 0.029 dan nilai val_loss 0.3</font></h4>
+        <h4><font color='navy'>Model di save dengan format h5 menggunakan fungsi dari Keras, dan bisa di load menggunakan fungsi dari Keras juga </font></h4>
+    </div>
+</body>
+</html>

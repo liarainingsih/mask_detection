@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Object Detection</title>
+    <style>
+        body {
+          margin: 0;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .topnav {
+          overflow: hidden;
+          background-color: #333;
+        }
+        
+        .topnav a {
+          float: left;
+          color: #f2f2f2;
+          text-align: center;
+          padding: 14px 16px;
+          text-decoration: none;
+          font-size: 17px;
+        }
+        
+        .topnav a:hover {
+          background-color: #ddd;
+          color: black;
+        }
+        
+        .topnav a.active {
+          background-color: #04AA6D;
+          color: white;
+        }
+        </style>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="{{ url_for('main')}}">Home</a>
+        <a href="{{ url_for('hypothesis')}}">Hypothesis</a>
+        <a href="{{ url_for('about')}}">About</a>
+      </div>
+<div style="padding-left: 10px;">
+    <p style="font-size:30px; color: darkblue;">Object Detection</p>
+    <br>
+    {% for table in tables %}
+                {{titles[loop.index]}}
+                {{ table|safe }}
+    {% endfor %}
+    <br>
+    <p>    
+        Gender: Jenis kelamin pelanggan: Male, Female
+        <br><br>
+        Senior Citizen: Menunjukkan usia pelanggan, jika berusia 65 tahun atau lebih: Yes, No
+        <br><br>
+        Partner: Menunjukkan status pernikahan: Yes, No
+        <br><br>
+        Dependents: Menunjukkan jika pelanggan tinggal bersama tanggungan: Yes, No. Tanggungan bisa anak, orangtua, kakek-nenek, dll.
+        <br><br>
+        Tenure: Mengindikasikan jumlah total(bulan) pelanggan berlangganan.
+        <br><br>
+        Phone Service: Menunjukkan jika pelanggan juga berlangganan layanan telepon rumah: Yes, No
+        <br><br>
+        Multiple Lines: Menunjukkan jika pelanggan juga berlangganan beberapa saluran telepon: Yes, No
+        <br><br>
+        Internet Service: Menunjukkan jika pelanggan juga berlangganan layanan Internet : No, DSL, Fiber Optic, Cable.
+        <br><br>    
+        Online Security: Menunjukkan jika pelanggan juga berlangganan layanan keamanan online tambahan : Yes, No
+        <br><br>
+        Online Backup: Menunjukkan jika pelanggan juga berlangganan layanan backup online tambahan: Yes, No
+        <br><br>
+        Device Protection Plan: Menunjukkan jika pelanggan juga berlangganan paket perlindungan perangkat tambahan untuk peralatan Internet : Yes, No
+        <br><br>
+        Premium Tech Support: Menunjukkan jika pelanggan juga berlangganan paket dukungan teknis tambahan: Yes, No
+        <br><br>
+        Streaming TV: Menunjukkan jika pelanggan menggunakan layanan Internet mereka untuk melakukan streaming program televisi dari penyedia pihak ketiga: Yes, No. Tidak ada tambahan biaya.
+        <br><br>
+        Streaming Movies: Menunjukkan jika pelanggan menggunakan layanan Internet mereka untuk streaming film dari penyedia pihak ketiga: Yes, No. Tidak ada biaya tambahan.
+        <br><br>
+        Contract: Menunjukkan jenis kontrak langganan saat ini: Month-to-Month, One Year, Two Year.
+        <br><br>
+        Paperless Billing: Menunjukkan jika pelanggan telah memilih paperless billing: Yes, No
+        <br><br>
+        Streaming Music: Menunjukkan jika pelanggan menggunakan layanan Internet mereka untuk streaming musik dari penyedia pihak ketiga: Yes, No. Tidak ada tambahan biaya.
+        <br><br>
+        Payment Method: Menunjukkan bagaimana pelanggan membayar tagihan mereka: Bank Withdrawal, Credit Card, Mailed Check
+        <br><br>
+        Monthly Charge: Menunjukkan total biaya bulanan pelanggan saat ini untuk semua layanan.
+        <br><br>
+        Total Charges: Menunjukkan total biaya pelanggan, dihitung hingga akhir kuartal.
+        <br><br>
+        Churn Label: Yes = Pelanggan berhenti berlanggan pada kuartal ini. No = Pelanggan tetap berlangganan. 
+    </p>
+    <br><br>
+    <p style="font-size:20px; color: darkblue; text-align: center;">Ditsribusi Data Numerik</p>
+    <img src="/num_dat.png" alt="category"style="width:1200px">
+    <img src="/num_dat_churn.png" alt="category"style="width:1200px">
+    <br>
+    <p style="font-size:15px; color: darkblue;">
+        <ul>
+            <li><p style="font-size:15px; color: darkblue;">Jumlah pelanggan yg berusia 65 lebih banyak yang berhenti berlangganan, namun yg berusia kurang dari 65 tahun lebih banyak yang tetap berlangganan</p></li>
+            <li><p style="font-size:15px; color: darkblue;">Pelanggan yang memiliki total tanggunan lebih sedikit, lebih banyak berhenti berlangganan dibandingkan dengan pelanggan yang jumlah tanggungannya lebih banyak</p></li>
+            <li><p style="font-size:15px; color: darkblue;">Pelanggan yang memiliki MonthlyCharges antara 70-100 yang banyak berhenti berlangganan</p></li>
+            <li><p style="font-size:15px; color: darkblue;">Pelanggan yang memiliki TotalCharges lebih sedikit(kurang dari 2000) yang lebih memilih berhenti berlangganan, mungkin ini pelanggan yang baru coba-coba</p></li>
+            <li><p style="font-size:15px; color: darkblue;">Lebih banyak pelanggan yang memilih untu tetap berlangganan dibandingkan yang berhenti langganan</p></li>
+        </ul>
+    </p>
+    <br>
+    <br>
+    <p style="font-size:20px; color: darkblue; text-align: center;">Ditsribusi Data Kategorik</p>
+    <img src="/cat_dat.png" alt="category"style="width:1200px">
+    <h4><font color='navy'>Orang yang memiliki  kontrak bulanan dan internet serat optic memiliki efek yang sangat besar pada probabilitas churn.</font></h4>
+    <h4><font color='navy'>* Gender: Perbandingan laki-laki dan perempuan untuk yang melakukan Churn dan tidak melakukan Churn, hampir sama.</font></h4>
+    <h4><font color='navy'>* Partner: Lebih banyak nasabah yang tidak melakukan Churn. Nasabah yang melakukan Churn, lebih banyak yang tidak berpasangan dibandingkan yang berpasangan.</font></h4>
+    <h4><font color='navy'>* Dependent: Lebih banyak nasabah yang tidak melakukan Churn. Nasabah yang melakukan Churn, lebih banyak yang tidak bergantung dibandingkan yang bergantung.</font></h4>
+    <h4><font color='navy'>* PhoneService: Lebih banyak nasabah yang tidak melakukan Churn. Nasabah yang melakukan Churn, lebih banyak yang memiliki layanan telepon dibandingkan yang tidak memiliki layanan telepon.</font></h4> 
+    <h4><font color='navy'>* MultipleLines: Lebih banyak nasabah yang tidak melakukan Churn. Nasabah yang melakukan Churn, seimbang antara yang memiliki banyak layanan telepon.</font></h4>
+    <h4><font color='navy'>* InternetService: Lebih banyak nasabah yang tidak melakukan Churn. Nasabah yang melakukan Churn, lebih banyak nasabah yang berlangganan fiber optic dibandingkan dengan nasabah yang berlangganan DSL atau tidak berlangganan.</font></h4>
+    <h4><font color='navy'>* OnlineSecurity: Lebih banyak nasabah yang tidak melakukan Churn. Nasabah yang melakukan Churn, lebih banyak yang tidak menggunakan OnlineSecurity dibandingkan yang menggunakan OnlineSecurity.</font></h4>
+    <h4><font color='navy'>* OnlineBackup: Lebih banyak nasabah yang tidak melakukan Churn. Nasabah yang melakukan Churn, lebih banyak yang tidak menggunakan OnlineBackup dibandingkan yang menggunakan OnlineBackup</font></h4>
+    <h4><font color='navy'>* DeviceProtection: Nasabah yang melakukan Churn lebih banyak yang tidak memiliki DeviceProtectionn dibandingkan dengan yang memiliki DeviceProtection dan tidak ada layanan internet.</font></h4>
+    <h4><font color='navy'>* TechSupport: Nasabah yang melakukan Churn lebih banyak yang tidak memiliki TechSupport dibandingkan dengan yang memiliki TechSupport dan tidak ada layanan internet.</font></h4>
+    <h4><font color='navy'>* StreamingTV: Nasabah yang berlangganan tv berbayar lebih banyak yang melakukan Churn dibandingkan dengan nasabah yang tidak berlangganan berlangganan tv berbayar atau tidak berlangganan internet.</font></h4>
+    <h4><font color='navy'>* StreamingMovies: Nasabah yang berlangganan streaming movie lebih banyak yang melakukan Churn dibandingkan dengan nasabah yang tidak berlangganan streaming movie atau tidak berlangganan internet.</font></h4>
+    <h4><font color='navy'>* Contract: Nasabah dengan kontrak bulanan memiliki kemungkinan Churn lebih banyak dibandingkan orang yang dengan kontrak satu tahun dan dua tahun.</font></h4>
+    <h4><font color='navy'>* PaperlessBilling: Nasabah yang melakukan Churn lebih banyak dibandingkan yang melakukan Churn. Untuk nasabah yang menerima tagihan paperless lebih banyak yang melakukan Churn daripada yang tidak menerima tagihan dalam bentuk paperless.</font></h4>
+    <h4><font color='navy'>* PaymentMethod: Nasabah yang tidak melakukan Churn lebih banyak dibandingkan yang melakukan Churn. Untuk nasabah yang melakukan Churn, pembayaran menggunakan Electronic check berjumlah lebih banyak dibandingkan dengan Mailed check, Bank transfer(otomatis), dan Credit card(otomatis). </font></h4>
+    <h4><font color='navy'>* Nasabah yang tidak melakukan Churn lebih banyak dibandingkan yang melakukan Churn.</font></h4>
+    
+    </div>
+</body>
+</html>
