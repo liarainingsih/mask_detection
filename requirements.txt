@@ -2,7 +2,6 @@ flask
 numpy
 sklearn
 matplotlib
-seaborn
 pandas
 gunicorn
 tensorflow-cpu

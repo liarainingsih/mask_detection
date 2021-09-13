@@ -4,11 +4,9 @@ from flask.wrappers import Response
 import numpy as np
 import pandas as pd
 import numpy as py
-import seaborn as sns
 from skimage import io
 from matplotlib.figure import Figure
 import matplotlib
-matplotlib.use('Agg')
 import matplotlib.pyplot  as plt
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 from flask import Flask, request, render_template, session, redirect
@@ -18,20 +16,16 @@ from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import Model, load_model
 from sklearn.preprocessing import LabelBinarizer
 import cv2
-import imutils
-from imutils.io import TempFile
 import sys
-from mtcnn.mtcnn import MTCNN 
-import torch
-from torchvision import datasets,transforms,models
-from torch.utils.data import Dataset,DataLoader
+# import torch
+# from torchvision import datasets,transforms
+# from torch.utils.data import Dataset,DataLoader
 from PIL import Image
 import matplotlib.patches as patches
 from scipy.spatial import distance
 
 app = flask.Flask(__name__, template_folder='templates')
 
-detect=MTCNN()
 model = load_model("classify_model.h5")
 
 def testing(name):
