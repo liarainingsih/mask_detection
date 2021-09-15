@@ -1,7 +1,6 @@
 flask
 numpy
 matplotlib
-pandas
 tensorflow-cpu
 scikit-image
 opencv-python
