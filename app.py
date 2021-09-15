@@ -2,7 +2,6 @@ import flask
 from flask.helpers import send_file
 from flask.wrappers import Response
 import numpy as np
-import pandas as pd
 from skimage import io
 from matplotlib.figure import Figure
 import matplotlib
@@ -58,7 +57,7 @@ def testing(name):
     else:
         print("No Face!")
 
-    return redirect("/static/result.png", code=302)
+    return redirect("./static/result.png", code=302)
 
 
 
