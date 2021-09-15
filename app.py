@@ -1,3 +1,4 @@
+import os
 import flask
 from flask.helpers import send_file
 from flask.wrappers import Response
@@ -15,11 +16,11 @@ from PIL import Image
 import matplotlib.patches as patches
 from scipy.spatial import distance
 
-app = flask.Flask(__name__, template_folder='templates')
+app = flask.Flask(__name__, static_folder='static', template_folder='templates')
 
-model = load_model("classify_model.h5")
 
 def testing(name):
+    model = load_model("classify_model.h5")
     face_model = cv2.CascadeClassifier('./haarcascade_frontalface_default.xml')
             
     mask_label = {0:'Pakai Masker',1:'Tanpa Masker'}
@@ -77,4 +78,5 @@ def main():
     return(flask.render_template('main.html'))
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host='0.0.0.0', port=port)
